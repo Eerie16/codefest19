@@ -12,7 +12,7 @@ logger=logging.getLogger('django')
 
 
 class ProfileSerializer(serializers.ModelSerializer):
-    name = serializers.CharField(max_length=128,read_only=True)
+    name = serializers.CharField(max_length=128)
     institute_name=serializers.CharField(max_length=128, required=True, allow_blank=False, allow_null=False)
     study_year=serializers.IntegerField(required=True, allow_null=False)
     degree=serializers.CharField(max_length=50,required=False, allow_blank=True, default="", allow_null=True)
