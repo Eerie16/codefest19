@@ -71,6 +71,7 @@ class TeamCreationSerializer(serializers.Serializer):
     team_name = serializers.CharField()
 
     def validate(self, attrs):
+        raise serializers.ValidationError("Registration Deadline Ended.")
         name = attrs['team_name']
         if len(name)<2:
             raise serializers.ValidationError("Team name must be of atleast 2 characters")
@@ -99,6 +100,7 @@ class TeamJoinSerializer(serializers.Serializer):
     access_code = serializers.CharField()
 
     def validate(self, data):
+        raise serializers.ValidationError("Registration Deadline Ended.")
         access_code=data['access_code']
         user =  self.context['request'].user
         team = Team.objects.filter(access_code=access_code) 
@@ -151,6 +153,7 @@ class RemoveFromTeamSerializer(serializers.Serializer):
     member = serializers.PrimaryKeyRelatedField(queryset = Profile.objects.all(), required=True)
 
     def validate(self, attrs):
+        raise serializers.ValidationError("Registration Deadline Ended.")
         user_profile = self.context['request'].user.profile
         team = self.context['team']
         member = attrs['member']

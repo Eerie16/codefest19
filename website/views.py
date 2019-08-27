@@ -82,6 +82,7 @@ class TeamLeaveView(generics.DestroyAPIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
     def destroy(self, request, *args, **kwargs):
+        return status({},status=status.HTTP_400_BAD_REQUEST)
         self.request = request
         instance = self.get_object()
         return self.perform_destroy(instance)
