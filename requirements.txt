@@ -19,7 +19,7 @@ django-rest-framework==0.1.0
 django-storages==1.7.1
 djangorestframework==3.9.0
 drf-yasg==1.12.1
-endesive==1.2.0
+# endesive==1.2.0
 firebase-admin==2.16.0
 gevent==1.4.0
 google-api-core==1.8.0
@@ -57,7 +57,7 @@ pyasn1==0.4.5
 pyasn1-modules==0.2.4
 pycparser==2.19
 pycryptodome==3.9.0
-PyKCS11==1.5.5
+# PyKCS11==1.5.5
 pylint==2.3.1
 pyOpenSSL==19.0.0
 python-decouple==3.1

@@ -165,7 +165,7 @@ if not DEBUG:
     with open("codefest.tech.pfx.aes", "rb") as encrypted_file:
         with open("codefest.tech.pfx", "wb") as decrypted_file:
             pyAesCrypt.decryptStream(
-                encrypte`d_file,
+                encrypted_file,
                 decrypted_file,
                 config('SERVICE_ACCOUNT_DECRYPT_KEY'),
                 64*1024, 
