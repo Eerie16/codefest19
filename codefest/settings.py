@@ -162,6 +162,16 @@ if not DEBUG:
                 64*1024, 
                 int(config('SERVICE_ACCOUNT_ENC_SIZE'))
             )
+    with open("codefest.tech.pfx.aes", "rb") as encrypted_file:
+        with open("codefest.tech.pfx", "wb") as decrypted_file:
+            pyAesCrypt.decryptStream(
+                encrypted_file,
+                decrypted_file,
+                config('SERVICE_ACCOUNT_DECRYPT_KEY'),
+                64*1024, 
+                os.stat("codefest.tech.pfx.aes").st_size
+            )
+
 
 cred = credentials.Certificate(os.path.join(BASE_DIR,'service_account.json'))
 default_app = firebase_admin.initialize_app(cred)
