@@ -156,22 +156,22 @@ class CALeaderBoardView(generics.ListAPIView):
     serializer_class = CALeaderboardSerializer
     queryset=CA.objects.order_by('-points')[:15]
 
-class ParticipationCertificateView(generics.RetrieveAPIView):
-    permission_classes = [permissions.IsAuthenticated,AllowCompleteAndVerified]
-    authentication_classes=[authentication.TokenAuthentication, authentication.SessionAuthentication]
-    serializer_class = CertificateSerializer
+# class ParticipationCertificateView(generics.RetrieveAPIView):
+#     permission_classes = [permissions.IsAuthenticated,AllowCompleteAndVerified]
+#     authentication_classes=[authentication.TokenAuthentication, authentication.SessionAuthentication]
+#     serializer_class = CertificateSerializer
     
-    def get_queryset(self):
-        return None
+#     def get_queryset(self):
+#         return None
 
-    def get_object(self):
-        return None
+#     def get_object(self):
+#         return None
 
-    def retrieve(self, request, *args, **kwargs):
-        serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        filepath = serializer.certificate_main()
-        FilePointer = open(filepath,"rb")
-        response = HttpResponse(FilePointer.read(),content_type='application/pdf')
-        # os.remove(filepath)
-        return response
+#     def retrieve(self, request, *args, **kwargs):
+#         serializer = self.get_serializer(data=request.data)
+#         serializer.is_valid(raise_exception=True)
+#         filepath = serializer.certificate_main()
+#         FilePointer = open(filepath,"rb")
+#         response = HttpResponse(FilePointer.read(),content_type='application/pdf')
+#         # os.remove(filepath)
+#         return response

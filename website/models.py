@@ -87,7 +87,7 @@ class Profile(models.Model):
     resume=models.FileField(upload_to=get_file_path,null=True)
     is_profile_complete=models.BooleanField(default=False)
     referral_count = models.IntegerField(default =0)
-    
+    certificate_link = models.URLField(max_length=250,null=True)
     # @cached_property
     # def name(self):
     #     return f'{self.user.first_name} {self.user.last_name}'
