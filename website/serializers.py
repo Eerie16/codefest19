@@ -228,74 +228,15 @@ class CALeaderboardSerializer(serializers.ModelSerializer):
         model=CA
         exclude=('comment','id')
 
-# class CertificateSerializer(serializers.Serializer):
+class CertificateSerializer(serializers.Serializer):
 
-#     def validate(self, data):
-#         user = self.context['request'].user
-#         profile = user.profile
-#         if not Membership.objects.filter(profile=profile).count():
-#             raise serializers.ValidationError("You have not registered for any event")
-#         return_data ={
-#             'name':profile.name,
-#             'institute':profile.institute_name,
-#             'uid':user.verified_account.pk,
-#         }
-#         return return_data
+    def validate(self, data):
+        user = self.context['request'].user
+        profile = user.profile
+        if not Membership.objects.filter(profile=profile).count():
+            raise serializers.ValidationError("You have not registered for any event")
+        data = {
+            'url':user.profile.certificate_link
+        }
+        return data
 
-    # def create_certificate_pdf(self,name, institute):
-    #     working_directory = os.path.join(settings.BASE_DIR,'resources/certificate/')
-    #     img = Image.open(working_directory+"participation.jpg")
-    #     draw = ImageDraw.Draw(img)
-    #     font1 = ImageFont.truetype(working_directory+"a.otf", 72)
-    #     font2 = ImageFont.truetype(working_directory+"b.otf",66)
-    #     draw.text((350,1700),"This is to certify that Mr./Ms. ..................................................................", (0,0,0), font=font2)
-    #     draw.text((350,1800),"of ..................................................................................................................", (0,0,0), font=font2)
-    #     draw.text((350,1900),"participated in Codefest 2019 - the annual coding festival of", (0,0,0), font=font2)
-    #     draw.text((350,2000),"Dept of Computer Science and Engineering, IIT (BHU) Varanasi.", (0,0,0), font=font2)        
-    #     draw.text((1200,1665),name.title(),(0,0,0),font1)
-    #     draw.text((450,1765),institute.upper(),(0,0,0),font1)
-    #     fname = name.split(' ')[0]+"Codefest19_ParticipationCertificate"
-    #     img.save(fname+".jpg")
-    #     pdf_bytes = img2pdf.convert(fname+".jpg")
-    #     pdf_path = fname+".pdf"
-    #     with open(pdf_path, "wb") as file: 
-    #         file.write(pdf_bytes) 
-    #     os.remove(fname+".jpg")
-    #     return pdf_path
-
-    # def sign_certificate(self, filename,reason="Participation"):
-    #     signing_attributes = {
-    #         b'sigflags': 3,
-    #         b'contact': b'codefest@iitbhu.ac.in',
-    #         b'location': b'IIT (BHU) Varanasi, India',
-    #         b'signingdate': str.encode(str(datetime.datetime.now())),
-    #         b'reason': b'Participation',
-    #         b'signature': b'',
-    #         b'signaturebox': (0, 0, 100, 100),
-    #     }
-    #     working_directory= os.path.join(settings.BASE_DIR,"resources/certificate/")
-    #     privKey = os.path.join(working_directory, "codefest.tech.pfx")
-        
-    #     p12 = load_pkcs12(open(privKey, 'rb').read(), config("PRIV_KEY_PASS"))
-    #     with open(filename,'rb') as readfile:
-    #         datau = readfile.read()
-    #         datas = pdf.cms.sign(datau, signing_attributes,
-    #             p12.get_privatekey().to_cryptography_key(),
-    #             p12.get_certificate().to_cryptography(),
-    #             [],
-    #             'sha256'
-    #         )
-    #         signed_filename = filename.replace('.pdf', '-signed-cms.pdf')
-    #         with open(signed_filename, 'wb') as signed_file_ptr:
-    #             signed_file_ptr.write(datau)
-    #             signed_file_ptr.write(datas)
-    #     os.remove(filename)
-    #     return signed_filename
-
-    # def certificate_main(self):
-    #     name = self.validated_data['name']
-    #     institute = self.validated_data['institute']
-    #     uid = self.validated_data['uid']
-    #     filename = self.create_certificate_pdf(name, institute)
-    #     signed_filename = self.sign_certificate(filename)
-    #     return os.path.join(settings.BASE_DIR, signed_filename)

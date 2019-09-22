@@ -11,5 +11,5 @@ urlpatterns = [
     path('leaderboard/', LeaderBoardView.as_view()),
     path('resume/',ResumeView.as_view()),
     path('cas/', CALeaderBoardView.as_view()),
-    # path('certificate/',ParticipationCertificateView.as_view()),
+    path('certificate/',ParticipationCertificateView.as_view()),
 ]
